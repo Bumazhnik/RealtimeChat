@@ -1,3 +1,4 @@
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using RealtimeChat.Models;
 using System.Diagnostics;
@@ -12,7 +13,7 @@ namespace RealtimeChat.Controllers
         {
             _logger = logger;
         }
-
+        //[Authorize]
         public IActionResult Index()
         {
             return View();

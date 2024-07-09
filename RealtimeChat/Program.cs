@@ -1,7 +1,26 @@
+using Microsoft.AspNetCore.Authentication.Cookies;
+using Microsoft.AspNetCore.Identity;
+using Microsoft.EntityFrameworkCore;
+using RealtimeChat.Db;
+using RealtimeChat.Entities;
+using System.Text.Json;
+
 var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
 builder.Services.AddControllersWithViews();
+var config = JsonSerializer.Deserialize<SensitiveConfig>(File.ReadAllText("sensitiveConfig.json"));
+if (config == null)
+    throw new Exception("No config provided");
+builder.Services.AddSingleton(config);
+builder.Services.AddSingleton<IPasswordHasher<User>>(new PasswordHasher<User>());
+builder.Services.AddDbContext<ApplicationContext>(options => options.UseSqlServer(config.ConnectionString));
+builder.Services.AddAuthentication(CookieAuthenticationDefaults.AuthenticationScheme)
+        .AddCookie(options => //CookieAuthenticationOptions
+        {
+            options.LoginPath = "/Account/Login";
+            options.AccessDeniedPath = "/Account/Login";
+        });
 
 var app = builder.Build();
 
@@ -18,6 +37,7 @@ app.UseStaticFiles();
 
 app.UseRouting();
 
+app.UseAuthentication();
 app.UseAuthorization();
 
 app.MapControllerRoute(
