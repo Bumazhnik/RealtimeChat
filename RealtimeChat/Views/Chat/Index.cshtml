@@ -1,0 +1,43 @@
+﻿<div class="chat-container">
+<div class="users">
+    <div class="users-header">
+        <a asp-controller="Account" asp-action="Logout">Logout</a>
+    </div>
+    <ul class="user-list">
+        <li>
+            <div class="avatar"><img src="~/user.jpg"></div>
+            <span class="user-name">User 1</span>
+            <span class="user-last-message">Hello, World!</span>
+        </li>
+    </ul>
+</div>
+<div class="chat-dialog">
+    <div class="chat-header">
+        <div class="avatar"><img src="~/user.jpg"></div>
+        <div class="h-user-name">User 1</div>
+    </div>
+    <div class="chat-content">
+        <div class="message self">
+            <div class="text">
+                <h6>User 1</h6>
+                <span>Hello, World!</span>
+                <span class="date">17:30</span>
+            </div>
+        </div>
+        <div class="message ">
+            <div class="text">
+                <h6>User 1</h6>
+                <span>Hello, World!</span>
+                <span class="date">17:30</span>
+            </div>
+        </div>
+    </div>
+    <div class="chat-control">
+        <input type="text" id="message-field">
+        <button id="send"></button>
+    </div>
+</div>
+</div>
+@section Scripts{
+    <script src="~/webpack/index.js"></script>
+}
