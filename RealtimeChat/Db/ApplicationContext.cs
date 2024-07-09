@@ -1,5 +1,6 @@
 ﻿using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.EntityFrameworkCore.Storage;
 using Microsoft.Extensions.Hosting;
 using RealtimeChat.Entities;
 using System.Data;
@@ -11,6 +12,7 @@ namespace RealtimeChat.Db
         public DbSet<User> Users { get; set; }
         public DbSet<Role> Roles { get; set; }
         public DbSet<ChatSession> ChatSessions { get; set; }
+        public DbSet<Message> Messages { get; set; }
         private IPasswordHasher<User> hasher;
         SensitiveConfig config;
         public ApplicationContext(DbContextOptions<ApplicationContext> options,SensitiveConfig config,IPasswordHasher<User> hasher)
@@ -39,24 +41,20 @@ namespace RealtimeChat.Db
             Role adminRole = new Role { Id = 1, Name = adminRoleName };
             Role userRole = new Role { Id = 2, Name = userRoleName };
             User adminUser = MakeAdmin(adminRole);
+            adminUser.Id = 1;
             User testUser = new User
             {
+                Id = 2,
                 Email = "test",
                 Name = "test",
                 RoleId = userRole.Id
             };
-            adminUser.Id = 1;
+            testUser.Password = hasher.HashPassword(testUser, config.AdminPassword);
 
-            Message message = new Message
-            {
-                Id = 1,
-                UserId = adminUser.Id,
-            };
 
 
             modelBuilder.Entity<Role>().HasData([adminRole, userRole]);
             modelBuilder.Entity<User>().HasData([adminUser,testUser]);
-            modelBuilder.Entity<ChatSession>().HasData();
 
             base.OnModelCreating(modelBuilder);
         }

@@ -3,7 +3,9 @@
 *::after {
     box-sizing: border-box;
 }
-
+html {
+    font-family: Arial, Helvetica, sans-serif;
+}
 html,
 body {
     margin: 0;
@@ -26,12 +28,14 @@ main {
     display: flex;
     color: white;
 }
-.users {
+.sessions {
     background-color: #212121;
     height: 100%;
     flex: 1;
     border: 1px solid rgb(0, 0, 0);
     max-width: 350px;
+    display:flex;
+    flex-direction:column
 }
 .chat-dialog {
     background-color: rgb(4, 0, 15);
@@ -46,11 +50,11 @@ main {
     background-color: #212121;
     display: flex;
 }
-.users-header {
+.sessions-header {
     border-bottom: 1px solid rgb(0, 0, 0);
     height: 60px;
 }
-.user-list {
+.session-list {
     height: 100%;
     overflow: auto;
     scrollbar-width: thin;
@@ -58,15 +62,16 @@ main {
     list-style: none;
     padding: 0;
     margin: 0;
+    flex:1;
 }
-.user-list li {
+.session-list li {
     margin: 10px;
     display: grid;
     grid-template-columns: 76px 1fr;
     grid-template-rows: 38px 38px;
     border-radius: 15px;
 }
-.user-list li:hover {
+.session-list li:hover {
     background-color: rgb(71, 71, 71);
 }
 .avatar {
@@ -131,8 +136,12 @@ main {
     font-size: 0.7rem;
     font-weight: bold;
     color: rgb(194, 194, 194);
+    margin:2px;
 }
 .text h6 {
     margin: 0;
     color: skyblue;
+}
+.session-list .current, .session-list .current:hover {
+    background-color: rgb(122, 49, 218);
 }

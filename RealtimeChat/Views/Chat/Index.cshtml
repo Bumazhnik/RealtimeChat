@@ -1,43 +1,60 @@
-﻿<div class="chat-container">
-<div class="users">
-    <div class="users-header">
-        <a asp-controller="Account" asp-action="Logout">Logout</a>
+﻿@model ChatViewModel
+<div class="chat-container">
+    <div class="sessions">
+        <div class="sessions-header">
+            <a asp-controller="Account" asp-action="Logout">Logout</a>
+            <a asp-controller="Chat" asp-action="MakeSession">Make session</a>
+        </div>
+        <ul class="session-list">
+            @if(Model.Sessions != null)
+            @foreach(var item in Model.Sessions)
+            {
+                <li>
+                    <div class="avatar"><img src="~/user.jpg" /></div>
+                    <span class="user-name">@item.Name</span>
+                    <span class="user-last-message">
+                        Owner:
+                        @(item.Users.FirstOrDefault(x=>x.Id == item.OwnerId)?.Name??"Not found")
+                    </span>
+                    <input type="hidden" value="@item.Id"/>
+                </li>
+            }
+
+        </ul>
     </div>
-    <ul class="user-list">
-        <li>
-            <div class="avatar"><img src="~/user.jpg"></div>
-            <span class="user-name">User 1</span>
-            <span class="user-last-message">Hello, World!</span>
-        </li>
-    </ul>
-</div>
-<div class="chat-dialog">
-    <div class="chat-header">
-        <div class="avatar"><img src="~/user.jpg"></div>
-        <div class="h-user-name">User 1</div>
-    </div>
-    <div class="chat-content">
-        <div class="message self">
-            <div class="text">
-                <h6>User 1</h6>
-                <span>Hello, World!</span>
-                <span class="date">17:30</span>
+    <div class="chat-dialog">
+        <div class="chat-header">
+            <div class="avatar">
+                @if(Model.CurrentUser.AvatarUrl == null) {
+                <img src="~/user.jpg" />
+                } else {
+                <img src="@Model.CurrentUser.AvatarUrl" />
+                }
+            </div>
+            <div class="h-user-name">@Model.CurrentUser.Name</div>
+        </div>
+        <div class="chat-content">
+            <div class="message self">
+                <div class="text">
+                    <h6>User 1</h6>
+                    <span>Hello, World!</span>
+                    <span class="date">17:30</span>
+                </div>
+            </div>
+            <div class="message">
+                <div class="text">
+                    <h6>User 1</h6>
+                    <span>Hello, World!</span>
+                    <span class="date">17:30</span>
+                </div>
             </div>
         </div>
-        <div class="message ">
-            <div class="text">
-                <h6>User 1</h6>
-                <span>Hello, World!</span>
-                <span class="date">17:30</span>
-            </div>
+        <div class="chat-control">
+            <input type="text" id="message-field" placeholder="Enter message" />
+            <button id="send"></button>
         </div>
     </div>
-    <div class="chat-control">
-        <input type="text" id="message-field">
-        <button id="send"></button>
-    </div>
-</div>
 </div>
 @section Scripts{
-    <script src="~/webpack/index.js"></script>
+<script src="~/webpack/index.js"></script>
 }

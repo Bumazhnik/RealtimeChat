@@ -1,3 +1,4 @@
+using Mapster;
 using Microsoft.AspNetCore.Authentication.Cookies;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
@@ -15,6 +16,7 @@ if (config == null)
 builder.Services.AddSingleton(config);
 builder.Services.AddSingleton<IPasswordHasher<User>>(new PasswordHasher<User>());
 builder.Services.AddDbContext<ApplicationContext>(options => options.UseSqlServer(config.ConnectionString));
+builder.Services.AddMapster();
 builder.Services.AddAuthentication(CookieAuthenticationDefaults.AuthenticationScheme)
         .AddCookie(options => //CookieAuthenticationOptions
         {
@@ -22,7 +24,14 @@ builder.Services.AddAuthentication(CookieAuthenticationDefaults.AuthenticationSc
             options.AccessDeniedPath = "/Account/Login";
         });
 
+
+
 var app = builder.Build();
+
+using(var scope = app.Services.CreateScope())
+{
+    scope.ServiceProvider.GetRequiredService<ApplicationContext>().Database.EnsureDeleted();
+}
 
 // Configure the HTTP request pipeline.
 if (!app.Environment.IsDevelopment())
