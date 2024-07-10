@@ -129,6 +129,20 @@ namespace RealtimeChat.Controllers
             };
             db.ChatSessions.Add(session);
             await db.SaveChangesAsync();
+            var dto = mapper.Map<ChatSessionDTO>(session);
+            var targetUsers = session.Users
+                .Select(x => x.Id)
+                .Intersect(manager.ConnectedIds.Select(x => x.Key));
+            foreach (var userId in targetUsers)
+            {
+                foreach (var connectionId in manager.ConnectedIds[userId].Keys())
+                {
+                    await hub.Clients
+                    .Client(connectionId)
+                    .SendAsync("SessionCreated", dto);
+                }
+
+            }
             return RedirectToAction("Index","Chat");
         }
     }

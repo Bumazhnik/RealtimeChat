@@ -1,5 +1,5 @@
 import * as signalR from "@microsoft/signalr";
-import { IMessageDTO } from "./dto/DTO";
+import { IChatSessionDTO, IMessageDTO } from "./dto/DTO";
 import { elements } from "./elements";
 import { myUser } from "./myUser";
 import { globalState } from "./state";
@@ -16,6 +16,9 @@ connection.on("MessageReceived", (message: IMessageDTO) => {
                 myUser.name == message.userName
             )
         );
+});
+connection.on("SessionCreated", (session: IChatSessionDTO) => {
+    elements.sessionList.appendChild(elements.createSessionElement(session));
 });
 
 connection.start().catch((err) => console.error(err));
