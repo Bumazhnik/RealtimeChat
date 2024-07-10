@@ -34,8 +34,8 @@ main {
     flex: 1;
     border: 1px solid rgb(0, 0, 0);
     max-width: 350px;
-    display:flex;
-    flex-direction:column
+    display: flex;
+    flex-direction: column;
 }
 .chat-dialog {
     background-color: rgb(4, 0, 15);
@@ -53,6 +53,7 @@ main {
 .sessions-header {
     border-bottom: 1px solid rgb(0, 0, 0);
     height: 60px;
+    display: flex;
 }
 .session-list {
     height: 100%;
@@ -62,7 +63,7 @@ main {
     list-style: none;
     padding: 0;
     margin: 0;
-    flex:1;
+    flex: 1;
 }
 .session-list li {
     margin: 10px;
@@ -87,7 +88,7 @@ main {
     display: flex;
     align-items: end;
 }
-.h-user-name {
+.h-user-names {
     display: flex;
     align-items: center;
 }
@@ -115,6 +116,7 @@ main {
     aspect-ratio: 1;
     border-radius: 9000px;
     background-color: rgb(122, 49, 218);
+    color: white;
 }
 .message {
     margin: 5px;
@@ -136,12 +138,28 @@ main {
     font-size: 0.7rem;
     font-weight: bold;
     color: rgb(194, 194, 194);
-    margin:2px;
+    margin: 2px;
 }
 .text h6 {
     margin: 0;
     color: skyblue;
 }
-.session-list .current, .session-list .current:hover {
+.session-list .current,
+.session-list .current:hover {
     background-color: rgb(122, 49, 218);
+}
+
+.sessions-header a {
+    text-decoration: none;
+    color: white;
+    height: 100%;
+    display: block;
+    aspect-ratio: 1;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 2rem;
+}
+.sessions-header a:hover {
+    background-color: gray;
 }

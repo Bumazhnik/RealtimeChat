@@ -33,14 +33,14 @@ public class AccountController:UserControllerBase
     {
         if (ModelState.IsValid)
         {
-            User user = await db.Users.FirstOrDefaultAsync(u => u.Email == model.Email || u.Name == model.Name);
+            var user = await db.Users.FirstOrDefaultAsync(u => u.Email == model.Email || u.Name == model.Name);
             if (user == null)
             {
                 // adding user to db
                 user = new User { Email = model.Email, Name = model.Name };
                 string hashPass = hasher.HashPassword(user, model.Password);
                 user.Password = hashPass;
-                Role userRole = await db.Roles.FirstOrDefaultAsync(r => r.Name == "user");
+                var userRole = await db.Roles.FirstOrDefaultAsync(r => r.Name == "user");
                 if (userRole != null)
                     user.Role = userRole;
 
@@ -57,7 +57,7 @@ public class AccountController:UserControllerBase
         return View(model);
     }
     [HttpGet]
-    public async Task<IActionResult> Login()
+    public IActionResult Login()
     {
         return View();
     }
@@ -67,7 +67,7 @@ public class AccountController:UserControllerBase
     {
         if (ModelState.IsValid)
         {
-            User user = await db.Users
+            var user = await db.Users
                 .Include(u => u.Role)
                 .FirstOrDefaultAsync(u => u.Name == model.Name);
             if (user != null)

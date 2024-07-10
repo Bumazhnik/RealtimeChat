@@ -1,5 +1,33 @@
-﻿@*
-    For more information on enabling MVC for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
-*@
-@{
+﻿@model MakeSessionViewModel
+
+<div class="container register">
+    <div class="window">
+
+        <h2>Make session</h2>
+        <form asp-action="MakeSession" asp-controller="Chat" asp-anti-forgery="true">
+            <div class="validation" asp-validation-summary="ModelOnly"></div>
+            <div class="form-group-container">
+                <div class="form-group">
+                    <label asp-for="SessionName">Session name:</label>
+                    <input type="text" asp-for="SessionName" placeholder="Session name" />
+                    <span asp-validation-for="SessionName"></span>
+                </div>
+                <div class="form-group">
+                    <button id="add-user" type="button">Add user</button>
+                    <button id="remove-user" type="button">Remove user</button>
+                </div>
+                <div class="form-group users-group">
+                    <div class="user number1">
+                        <label><span>User name 1:</span><input name="UserNames[0]" placeholder="User name" /></label>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <input type="submit" value="Register" class="btn btn-outline-dark" />
+                </div>
+            </div>
+        </form>
+    </div>
+</div>
+@section Scripts{
+    <script src="~/webpack/makeSession.js"></script>
 }

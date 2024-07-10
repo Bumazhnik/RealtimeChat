@@ -2,8 +2,8 @@
 <div class="chat-container">
     <div class="sessions">
         <div class="sessions-header">
-            <a asp-controller="Account" asp-action="Logout">Logout</a>
-            <a asp-controller="Chat" asp-action="MakeSession">Make session</a>
+            <a asp-controller="Account" asp-action="Logout"><i class="bi bi-box-arrow-left"></i></a>
+            <a asp-controller="Chat" asp-action="MakeSession"><i class="bi bi-plus-circle-fill"></i></a>
         </div>
         <ul class="session-list">
             @if(Model.Sessions != null)
@@ -31,7 +31,7 @@
                 <img src="@Model.CurrentUser.AvatarUrl" />
                 }
             </div>
-            <div class="h-user-name">@Model.CurrentUser.Name</div>
+            <div class="h-user-names">@Model.CurrentUser.Name</div>
         </div>
         <div class="chat-content">
             <div class="message self">
@@ -51,7 +51,7 @@
         </div>
         <div class="chat-control">
             <input type="text" id="message-field" placeholder="Enter message" />
-            <button id="send"></button>
+            <button id="send"><i class="bi bi-send-fill"></i></button>
         </div>
     </div>
 </div>

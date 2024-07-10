@@ -4,6 +4,7 @@ using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 using RealtimeChat.Db;
 using RealtimeChat.Entities;
+using RealtimeChat.Hubs;
 using System.Text.Json;
 
 var builder = WebApplication.CreateBuilder(args);
@@ -16,7 +17,9 @@ if (config == null)
 builder.Services.AddSingleton(config);
 builder.Services.AddSingleton<IPasswordHasher<User>>(new PasswordHasher<User>());
 builder.Services.AddDbContext<ApplicationContext>(options => options.UseSqlServer(config.ConnectionString));
+builder.Services.AddSingleton<UserConnectionManager>();
 builder.Services.AddMapster();
+builder.Services.AddSignalR();
 builder.Services.AddAuthentication(CookieAuthenticationDefaults.AuthenticationScheme)
         .AddCookie(options => //CookieAuthenticationOptions
         {
@@ -49,6 +52,7 @@ app.UseRouting();
 app.UseAuthentication();
 app.UseAuthorization();
 
+app.MapHub<ChatHub>("/chatHub");
 app.MapControllerRoute(
     name: "default",
     pattern: "{controller=Home}/{action=Index}/{id?}");
