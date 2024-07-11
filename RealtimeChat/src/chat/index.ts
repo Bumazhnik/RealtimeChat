@@ -7,7 +7,12 @@ import { getJson, post } from "./requests";
 import "./srListener";
 import { globalState } from "./state";
 
-loadMyUser();
+async function loadUsername() {
+    await loadMyUser();
+
+    elements.hUserNames.innerText = myUser.name;
+}
+loadUsername();
 
 elements.messageField.addEventListener("keydown", async (x) => {
     if (x.key == "Enter") await onMessageEnter();

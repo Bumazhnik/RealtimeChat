@@ -1,6 +1,5 @@
 ﻿using MapsterMapper;
 using Microsoft.AspNetCore.Authorization;
-using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.SignalR;
 using Microsoft.EntityFrameworkCore;
@@ -9,7 +8,6 @@ using RealtimeChat.DTO;
 using RealtimeChat.Entities;
 using RealtimeChat.Hubs;
 using RealtimeChat.Models;
-using System.Collections.Generic;
 
 namespace RealtimeChat.Controllers
 {
@@ -27,21 +25,25 @@ namespace RealtimeChat.Controllers
             this.manager = manager;
         }
 
+
+        [HttpGet]
+        public IActionResult MakeSession()
+        {
+            return View();
+        }
         public async Task<IActionResult> Index()
         {
             var user = await GetCurrentUser();
             if (user == null)
-                return BadRequest();
-            var userDto = mapper.Map<PublicUserDTO>(user);
+                return RedirectToAction("Login","Account");
 
-            var sessions = await db.ChatSessions.Where(x => x.Users.Any(x => x.Id == user.Id)).Include(x=>x.Users).ToListAsync();
+            var sessions = await db.ChatSessions.Where(x => x.Users.Any(x => x.Id == user.Id)).Include(x => x.Users).ToListAsync();
 
             var sessionDto = mapper.Map<List<ChatSessionDTO>>(sessions);
-            
-            
+
+
             var model = new ChatViewModel
             {
-                CurrentUser = userDto,
                 Sessions = sessionDto
             };
             return View(model);
@@ -54,9 +56,10 @@ namespace RealtimeChat.Controllers
             if (user == null)
                 return BadRequest();
 
-            var session = await db.ChatSessions.Include(x => x.Users).FirstOrDefaultAsync(x => x.Id == id && x.Users.Any(x => x.Id == user.Id));
+            var session = await GetSessionOfUser(id,user);
             if(session == null)
                 return BadRequest();
+
             var sessionDto = mapper.Map<ChatSessionDTO>(session);
             return Ok(sessionDto);
         }
@@ -64,10 +67,19 @@ namespace RealtimeChat.Controllers
         [Route("[controller]/messages/{id}")]
         public async Task<IActionResult> GetMessagesOfSession(int id)
         {
+            var user = await GetCurrentUser();
+            if (user == null)
+                return BadRequest();
+
+            var session = await GetSessionOfUser(id, user);
+            if (session == null)
+                return BadRequest();
+
             var l = await db.Messages.Where(x => x.ChatSessionId == id).Include(x=>x.User).ToListAsync();
             var dto = mapper.Map<List<MessageDTO>>(l);
             return Ok(dto);
         }
+
         [HttpPost]
         public async Task<IActionResult> SendMessage(string message, int sessionId)
         {
@@ -75,8 +87,9 @@ namespace RealtimeChat.Controllers
                 return BadRequest();
             var user = await GetCurrentUser();
             if (user == null) return BadRequest();
-            var session = await db.ChatSessions.FirstOrDefaultAsync(x=>x.Id == sessionId && x.Users.Any(x=>x.Id == user.Id));
+            var session = await GetSessionOfUser(sessionId, user);
             if (session == null) return BadRequest();
+
             Message msg = new Message
             {
                 UserId = user.Id,
@@ -103,11 +116,6 @@ namespace RealtimeChat.Controllers
             }
 
             return Ok();
-        }
-        [HttpGet]
-        public IActionResult MakeSession()
-        {
-            return View();
         }
         [HttpPost]
         public async Task<IActionResult> MakeSession(MakeSessionViewModel model)
@@ -146,6 +154,12 @@ namespace RealtimeChat.Controllers
 
             }
             return RedirectToAction("Index","Chat");
+        }
+
+
+        private async Task<ChatSession?> GetSessionOfUser(int sessionId, User user)
+        {
+            return await db.ChatSessions.Include(x => x.Users).FirstOrDefaultAsync(x => x.Id == sessionId && x.Users.Any(x => x.Id == user.Id));
         }
     }
 }
