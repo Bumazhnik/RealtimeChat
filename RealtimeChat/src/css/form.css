@@ -1,0 +1,88 @@
+﻿.container {
+    display: flex;
+    align-items: center;
+    background-color:black;
+    flex-direction: column;
+}
+
+
+.container h2 {
+    margin-top: 20px;
+}
+
+.window {
+    height: 500px;
+    width: 300px;
+    background-color: #212121;
+    border-radius: 15px;
+    display: flex;
+    align-items: center;
+    flex-direction: column;
+    color:white;
+}
+
+.register .window {
+    height: 700px;
+}
+
+.form-group-container {
+    display: flex;
+    align-items: center;
+    flex-direction: column;
+    gap: 40px;
+}
+
+.container span {
+    display: block;
+    word-break: break-word;
+    max-width: 200px;
+    color: red;
+}
+
+.form-group input {
+    display: block;
+    width: 200px;
+    height: 25px;
+    background: transparent;
+    border: none;
+    box-shadow: 0 1px black;
+    margin-top: 10px;
+    color:white;
+}
+
+button,
+input[type="submit"] {
+    background: linear-gradient(90deg,darkblue,purple);
+    height: 30px;
+    padding:0 20px;
+    border: none;
+    border-radius: 1000px;
+    color: white;
+}
+input[type="submit"] {
+    width: 200px;
+}
+
+.flex-center{
+    justify-content:center;
+}
+.validation{
+    color:red;
+    word-break:break-word;
+    width:95%;
+}
+.container .user span{
+    color:white;
+}
+.user{
+    margin-bottom:15px;
+}
+.users-group{
+    height: 200px;
+    overflow:auto;
+    scrollbar-width:thin;
+}
+.window a{
+    margin: 10px 0;
+    color:white;
+}

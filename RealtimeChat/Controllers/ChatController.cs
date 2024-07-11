@@ -71,6 +71,8 @@ namespace RealtimeChat.Controllers
         [HttpPost]
         public async Task<IActionResult> SendMessage(string message, int sessionId)
         {
+            if (string.IsNullOrWhiteSpace(message))
+                return BadRequest();
             var user = await GetCurrentUser();
             if (user == null) return BadRequest();
             var session = await db.ChatSessions.FirstOrDefaultAsync(x=>x.Id == sessionId && x.Users.Any(x=>x.Id == user.Id));

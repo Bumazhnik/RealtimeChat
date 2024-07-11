@@ -1,4 +1,4 @@
-import { IPublicUserDTO } from "./dto/DTO";
+import { IPublicUserDTO } from "../dto/DTO";
 import { getJson } from "./requests";
 
 export let myUser: IPublicUserDTO;

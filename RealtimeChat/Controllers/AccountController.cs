@@ -33,11 +33,11 @@ public class AccountController:UserControllerBase
     {
         if (ModelState.IsValid)
         {
-            var user = await db.Users.FirstOrDefaultAsync(u => u.Email == model.Email || u.Name == model.Name);
+            var user = await db.Users.FirstOrDefaultAsync(u => u.Name == model.Name);
             if (user == null)
             {
                 // adding user to db
-                user = new User { Email = model.Email, Name = model.Name };
+                user = new User {  Name = model.Name };
                 string hashPass = hasher.HashPassword(user, model.Password);
                 user.Password = hashPass;
                 var userRole = await db.Roles.FirstOrDefaultAsync(r => r.Name == "user");
@@ -49,7 +49,7 @@ public class AccountController:UserControllerBase
 
                 await Authenticate(user); // authentication
 
-                return RedirectToAction("Index", "Home");
+                return RedirectToAction("Index", "Chat");
             }
             else
                 ModelState.AddModelError("", "Incorrect username and/or password");
@@ -78,13 +78,7 @@ public class AccountController:UserControllerBase
                     case PasswordVerificationResult.Success:
                         await Authenticate(user); // authentication
 
-                        return RedirectToAction("Index", "Home");
-
-                    case PasswordVerificationResult.SuccessRehashNeeded:
-                        user.Password = hasher.HashPassword(user, model.Password);
-                        db.Entry(user).State = EntityState.Modified;
-                        await db.SaveChangesAsync();
-                        goto case PasswordVerificationResult.Success;
+                        return RedirectToAction("Index", "Chat");
                 }
             }
             ModelState.AddModelError("", "Incorrect username and/or password");

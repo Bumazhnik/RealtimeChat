@@ -4,8 +4,6 @@ namespace RealtimeChat.Models
 {
     public class RegisterViewModel
     {
-        [Required(ErrorMessage = "Email required")]
-        public string Email { get; set; }
         [Required(ErrorMessage = "Username required")]
         public string Name { get; set; }
 

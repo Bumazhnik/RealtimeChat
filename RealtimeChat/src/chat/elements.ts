@@ -1,4 +1,4 @@
-import { IChatSessionDTO, IMessageDTO } from "./dto/DTO";
+import { IChatSessionDTO, IMessageDTO } from "../dto/DTO";
 import { myUser } from "./myUser";
 import { getJson } from "./requests";
 import { globalState } from "./state";

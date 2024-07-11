@@ -9,6 +9,8 @@ using System.Text.Json;
 
 var builder = WebApplication.CreateBuilder(args);
 
+builder.WebHost.ConfigureKestrel(x => x.ListenAnyIP(80));
+
 // Add services to the container.
 builder.Services.AddControllersWithViews();
 var config = JsonSerializer.Deserialize<SensitiveConfig>(File.ReadAllText("sensitiveConfig.json"));
@@ -55,6 +57,6 @@ app.UseAuthorization();
 app.MapHub<ChatHub>("/chatHub");
 app.MapControllerRoute(
     name: "default",
-    pattern: "{controller=Home}/{action=Index}/{id?}");
+    pattern: "{controller=Chat}/{action=Index}/{id?}");
 
 app.Run();

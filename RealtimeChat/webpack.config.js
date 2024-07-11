@@ -4,8 +4,9 @@ const MiniCssExtractPlugin = require("mini-css-extract-plugin");
 
 module.exports = {
     entry: {
-        "index": "./src/index.ts",
-        "makeSession": "./src/makeSession.ts"
+        "index": "./src/chat/index.ts",
+        "makeSession": "./src/makeSession/makeSession.ts",
+        "form": "./src/form/form.ts"
     },
   output: {
     path: path.resolve(__dirname, "wwwroot/webpack"),

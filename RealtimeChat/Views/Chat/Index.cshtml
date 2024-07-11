@@ -25,16 +25,12 @@
     <div class="chat-dialog">
         <div class="chat-header">
             <div class="avatar">
-                @if(Model.CurrentUser.AvatarUrl == null) {
                 <img src="~/user.jpg" />
-                } else {
-                <img src="@Model.CurrentUser.AvatarUrl" />
-                }
             </div>
             <div class="h-user-names">@Model.CurrentUser.Name</div>
         </div>
         <div class="chat-content">
-            <div class="message self">
+@*             <div class="message self">
                 <div class="text">
                     <h6>User 1</h6>
                     <span>Hello, World!</span>
@@ -47,7 +43,7 @@
                     <span>Hello, World!</span>
                     <span class="date">17:30</span>
                 </div>
-            </div>
+            </div> *@
         </div>
         <div class="chat-control">
             <input type="text" id="message-field" placeholder="Enter message" />

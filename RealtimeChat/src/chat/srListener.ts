@@ -1,5 +1,5 @@
 import * as signalR from "@microsoft/signalr";
-import { IChatSessionDTO, IMessageDTO } from "./dto/DTO";
+import { IChatSessionDTO, IMessageDTO } from "../dto/DTO";
 import { elements } from "./elements";
 import { myUser } from "./myUser";
 import { globalState } from "./state";

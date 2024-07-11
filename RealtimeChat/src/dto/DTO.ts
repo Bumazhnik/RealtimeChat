@@ -7,7 +7,6 @@ export interface IMessageDTO {
 export interface IPublicUserDTO {
     id: number;
     name: string;
-    avatarUrl: string;
 }
 export interface IChatSessionDTO {
     id: number;

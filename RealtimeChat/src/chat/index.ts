@@ -1,6 +1,6 @@
-import "./css/main.css";
-import "./css/main.scss";
-import { IChatSessionDTO, IMessageDTO, IPublicUserDTO } from "./dto/DTO";
+import "../css/main.css";
+import "../css/main.scss";
+import { IChatSessionDTO, IMessageDTO, IPublicUserDTO } from "../dto/DTO";
 import { elements } from "./elements";
 import { myUser, loadMyUser } from "./myUser";
 import { getJson, post } from "./requests";
@@ -54,7 +54,10 @@ async function loadMessages(id: number) {
     }
 }
 async function onMessageEnter() {
-    let result = await postMessage(elements.messageField.value);
+    let message = elements.messageField.value;
+    if (message == null || message.trim() === '')
+        return;
+    let result = await postMessage(message);
     if (result) {
         elements.messageField.value = "";
     }

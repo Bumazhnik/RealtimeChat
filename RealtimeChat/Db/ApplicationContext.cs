@@ -24,9 +24,8 @@ namespace RealtimeChat.Db
         }
         private User MakeAdmin(Role adminRole)
         {
-            string adminEmail = config.AdminMail;
             string adminPassword = config.AdminPassword;
-            var user = new User { Email = adminEmail, Name = "admin", RoleId = adminRole.Id };
+            var user = new User {  Name = "admin", RoleId = adminRole.Id };
             string hashPassword = hasher.HashPassword(user, adminPassword);
             user.Password = hashPassword;
             return user;
@@ -45,7 +44,6 @@ namespace RealtimeChat.Db
             User testUser = new User
             {
                 Id = 2,
-                Email = "test",
                 Name = "test",
                 RoleId = userRole.Id
             };

@@ -1,5 +1,5 @@
 ﻿@model LoginViewModel
-<div class="container">
+<div class="container flex-center">
     <div class="window">
         <h2>Login</h2>
         <form asp-action="Login" asp-controller="Account" asp-anti-forgery="true">
@@ -20,5 +20,9 @@
                 </div>
             </div>
         </form>
+        <a asp-action="Register" asp-controller="Account">Register</a>
     </div>
 </div>
+@section Styles{
+    <link rel="stylesheet" href="~/webpack/css/form.css"/>
+}
