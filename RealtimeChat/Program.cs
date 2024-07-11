@@ -18,7 +18,8 @@ if (config == null)
     throw new Exception("No config provided");
 builder.Services.AddSingleton(config);
 builder.Services.AddSingleton<IPasswordHasher<User>>(new PasswordHasher<User>());
-builder.Services.AddDbContext<ApplicationContext>(options => options.UseSqlServer(config.ConnectionString));
+//builder.Services.AddDbContext<ApplicationContext>(options => options.UseSqlServer(config.ConnectionString));
+builder.Services.AddDbContext<ApplicationContext>(options => options.UseSqlite(config.ConnectionString));
 builder.Services.AddSingleton<UserConnectionManager>();
 builder.Services.AddMapster();
 builder.Services.AddSignalR();
