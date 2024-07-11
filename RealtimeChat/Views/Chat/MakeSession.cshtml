@@ -3,13 +3,13 @@
 <div class="container register flex-center">
     <div class="window">
 
-        <h2>Make session</h2>
-        <a asp-action="Index" asp-controller="Chat">Back</a>
+        <h2>Make session<br />(채팅방 만들기)</h2>
+        <a asp-action="Index" asp-controller="Chat">Back(뒤로)</a>
         <form asp-action="MakeSession" asp-controller="Chat" asp-anti-forgery="true">
 
             <div class="form-group-container">
                 <div class="form-group">
-                    <label asp-for="SessionName">Session name:</label>
+                    <label asp-for="SessionName">Session name(채팅방 이름):</label>
                     <input type="text" asp-for="SessionName" placeholder="Session name" />
                     <span asp-validation-for="SessionName"></span>
                 </div>
@@ -19,7 +19,7 @@
                 </div>
                 <div class="form-group users-group">
                     <div class="user number1">
-                        <label><span>User name 1:</span><input name="UserNames[0]" placeholder="User name" /></label>
+                        <label><span>Username(사용자 이름) 1:</span><input name="UserNames[0]" placeholder="User name" /></label>
                     </div>
                 </div>
                 <div class="form-group">

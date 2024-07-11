@@ -13,17 +13,17 @@
                     <span asp-validation-for="Email"></span>
                 </div> *@
                 <div class="form-group">
-                    <label asp-for="Name">Username:</label>
+                    <label asp-for="Name">Username(이름):</label>
                     <input type="text" asp-for="Name" placeholder="Username" />
                     <span asp-validation-for="Name"></span>
                 </div>
                 <div class="form-group">
-                    <label asp-for="Password">Password:</label>
+                    <label asp-for="Password">Password(비밀번호):</label>
                     <input asp-for="Password" placeholder="Password" />
                     <span asp-validation-for="Password"></span>
                 </div>
                 <div class="form-group">
-                    <label asp-for="ConfirmPassword">Confirm password:</label>
+                    <label asp-for="ConfirmPassword">Confirm password(확인):</label>
                     <input asp-for="ConfirmPassword" placeholder="Confirm password" />
                     <span asp-validation-for="ConfirmPassword"></span>
                 </div>
@@ -32,7 +32,7 @@
                 </div>
             </div>
         </form>
-        <a asp-action="Login" asp-controller="Account">Login</a>
+        <a asp-action="Login" asp-controller="Account">Login(로그인)</a>
     </div>
 </div>
 @section Styles {

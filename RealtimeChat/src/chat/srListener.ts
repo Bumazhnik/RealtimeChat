@@ -9,13 +9,15 @@ const connection = new signalR.HubConnectionBuilder()
     .build();
 
 connection.on("MessageReceived", (message: IMessageDTO) => {
-    if (message.chatSessionId == globalState.currentSessionId)
+    if (message.chatSessionId == globalState.currentSessionId){
         elements.chatContent.appendChild(
             elements.createMessageElement(
                 message,
                 myUser.name == message.userName
             )
         );
+        elements.scrollChatToBottom();
+    }
 });
 connection.on("SessionCreated", (session: IChatSessionDTO) => {
     elements.sessionList.appendChild(elements.createSessionElement(session));

@@ -12,7 +12,7 @@ addUserButton.addEventListener("click", (ev) => {
     userDiv.classList.add("user", "number" + userCount);
     let label = document.createElement("label");
     let span = document.createElement("span");
-    span.innerText = `User name ${userCount}:`;
+    span.innerText = `Username(사용자 이름) ${userCount}:`;
     let input = document.createElement("input");
     input.name = `UserNames[${userCount - 1}]`;
     input.placeholder = "User name";

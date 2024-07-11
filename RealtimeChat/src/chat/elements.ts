@@ -107,5 +107,12 @@ class Elements {
     div(): HTMLDivElement {
         return document.createElement("div");
     }
+    scrollChatToBottom() {
+/*        setTimeout(() => {
+
+        }, 1000);*/
+        elements.chatContent.scrollTo(0, this.chatContent.scrollHeight);
+
+    }
 }
 export let elements = new Elements();

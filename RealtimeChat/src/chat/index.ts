@@ -57,6 +57,7 @@ async function loadMessages(id: number) {
             elements.createMessageElement(m, myUser.name == m.userName)
         );
     }
+    elements.scrollChatToBottom();
 }
 async function onMessageEnter() {
     let message = elements.messageField.value;
